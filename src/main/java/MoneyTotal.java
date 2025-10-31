@@ -21,8 +21,8 @@ public class MoneyTotal {
         this.amount = result.compareTo(BigDecimal.ZERO) < 0 ? BigDecimal.ZERO : result;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public double getAmount() {
+        return amount.doubleValue();
     }
 
     public Currency getCurrency() {

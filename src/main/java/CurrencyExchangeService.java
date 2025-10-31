@@ -24,7 +24,7 @@ public class CurrencyExchangeService {
     }
 
     public double getCurrentMoney() {
-        return moneyTotal.getAmount().doubleValue();
+        return moneyTotal.getAmount();
     }
 
 
@@ -44,13 +44,13 @@ public class CurrencyExchangeService {
         if (rate == null) {
             throw new IllegalArgumentException("No exchange rate from " + moneyTotal.getCurrency().getCode() + " to " + currency.getCode());
         }
-        double convertedAmount = moneyTotal.getAmount().doubleValue() * rate.getRate();
+        double convertedAmount = moneyTotal.getAmount() * rate.getRate();
         return new Money(convertedAmount, currency);
     }
 
     public List<Money> convertToAllCurrencies() {
         return exchangeRateRepository.findAllByFrom(moneyTotal.getCurrency()).stream()
-                .map(rate -> new Money(moneyTotal.getAmount().doubleValue() * rate.getRate(), rate.getTo()))
+                .map(rate -> new Money(moneyTotal.getAmount() * rate.getRate(), rate.getTo()))
                 .collect(Collectors.toList());
     }
 }
